@@ -1,5 +1,5 @@
 import { useState } from "react";
-import getStockData from "../../utils/stockApi";
+import { getStockData } from "../../utils/stockApi";
 
 export default function StockRow({ ticker }) {
 	const [stock, setStock] = useState({});
@@ -11,7 +11,9 @@ export default function StockRow({ ticker }) {
 
 	return (
 		<tr>
-			<button onClick={handleFetch}>Get</button>
+			<td>
+				<button onClick={handleFetch}>Get</button>
+			</td>
 			<th>{ticker}</th>
 			<td>{stock.price}</td>
 			<td>{stock.volume}</td>

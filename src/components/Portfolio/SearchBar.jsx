@@ -3,7 +3,7 @@ import debounce from "lodash/debounce";
 import { getStockTicker } from "../../utils/stockApi";
 import "./SearchBar.css";
 
-export default function SearchBar() {
+export default function SearchBar({ addTicker }) {
 	const [searchText, setSearchText] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
 	const delayFetchRef = useRef(null);
@@ -35,7 +35,9 @@ export default function SearchBar() {
 			<div className="dropdown">
 				<ul className="dropdown-list">
 					{searchResults.map((result, index) => (
-						<li key={index}>{result.symbol}</li>
+						<li key={index} onClick={() => addTicker(result.symbol)}>
+							{result.symbol}
+						</li>
 					))}
 				</ul>
 			</div>

@@ -1,11 +1,18 @@
+import { useState } from "react";
 import PortfolioHeader from "./PortfolioHeader";
 import SearchBar from "./SearchBar";
 import StockRow from "./StockRow";
 
 export default function PortfolioTable() {
+	const [tickers, setTickers] = useState([]);
+
+	const addTicker = (ticker) => {
+		setTickers([...tickers, ticker]);
+	};
+
 	return (
 		<>
-			<SearchBar />
+			<SearchBar addTicker={addTicker} />
 			<table>
 				<thead>
 					<tr>
@@ -18,10 +25,9 @@ export default function PortfolioTable() {
 					</tr>
 				</thead>
 				<tbody>
-					<StockRow ticker="AAPL" />
-					<StockRow ticker="TSLA" />
-					<StockRow ticker="MSFT" />
-					<StockRow ticker="GOOGL" />
+					{tickers.map((symbol, index) => (
+						<StockRow ticker={symbol} key={index} />
+					))}
 				</tbody>
 			</table>
 		</>

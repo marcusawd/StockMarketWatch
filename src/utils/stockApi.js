@@ -17,4 +17,11 @@ async function getStockTicker(search) {
 	return data.data;
 }
 
-export { getStockData, getStockTicker };
+async function getEODData(date, ticker) {
+	const url = `${BASE_URL}/data/eod?api_token=${API_TOKEN}&symbols=${ticker}&date=${date}`;
+	const response = await fetch(url);
+	const data = await response.json();
+	return data.data;
+}
+
+export { getStockData, getStockTicker, getEODData };

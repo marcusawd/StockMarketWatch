@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PortfolioHeader from "./PortfolioHeader";
+// import PortfolioHeader from "./PortfolioHeader";
 import SearchBar from "./SearchBar";
 import StockRow from "./StockRow";
 

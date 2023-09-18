@@ -2,12 +2,18 @@ import { useState } from "react";
 // import PortfolioHeader from "./PortfolioHeader";
 import SearchBar from "./SearchBar";
 import StockRow from "./StockRow";
+import StockChart from "./StockChart";
 
-export default function PortfolioTable() {
+export default function PortfolioTable({ date }) {
 	const [tickers, setTickers] = useState([]);
+	const [chartData, setChartData] = useState([]);
 
 	const addTicker = (ticker) => {
 		setTickers([...tickers, ticker]);
+	};
+
+	const changeChartData = (data) => {
+		setChartData(data);
 	};
 
 	return (
@@ -26,10 +32,16 @@ export default function PortfolioTable() {
 				</thead>
 				<tbody>
 					{tickers.map((symbol, index) => (
-						<StockRow ticker={symbol} key={index} />
+						<StockRow
+							ticker={symbol}
+							key={index}
+							date={date}
+							changeChartData={changeChartData}
+						/>
 					))}
 				</tbody>
 			</table>
+			<StockChart data={chartData} />
 		</>
 	);
 }

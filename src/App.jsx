@@ -3,18 +3,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
 import PortfolioTable from "./components/Portfolio/PortfolioTable";
 import { useState } from "react";
-import { getEODData } from "./utils/stockApi";
-import formatDate from "./helper/formatDate";
 
 function App() {
 	const [selectedDate, setSelectedDate] = useState(new Date());
-
-	const handleDateChange = async (date) => {
-		setSelectedDate(date);
-		const formattedDate = formatDate(date);
-		const data = await getEODData(formattedDate, "AAPL");
-		console.log(data);
-	};
 
 	return (
 		<>
@@ -22,12 +13,12 @@ function App() {
 				<h1>US Equities Tracker</h1>
 				<ReactDatePicker
 					showIcon
-					onChange={handleDateChange}
+					onChange={(date) => setSelectedDate(date)}
 					selected={selectedDate}
 					dateFormat="yyyy/MM/dd"
 				/>
 			</div>
-			<PortfolioTable />
+			<PortfolioTable date={selectedDate} />
 		</>
 	);
 }

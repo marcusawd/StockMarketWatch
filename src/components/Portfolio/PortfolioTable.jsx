@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import PortfolioHeader from "./PortfolioHeader";
 import SearchBar from "./SearchBar";
 import StockRow from "./StockRow";
 import StockChart from "./StockChart";
@@ -22,7 +21,6 @@ export default function PortfolioTable({ date }) {
 			<table>
 				<thead>
 					<tr>
-						{/* <PortfolioHeader /> */}
 						<th></th>
 						<th>Ticker</th>
 						<th>Price</th>
@@ -41,7 +39,7 @@ export default function PortfolioTable({ date }) {
 					))}
 				</tbody>
 			</table>
-			<StockChart data={chartData} />
+			{chartData.length > 0 && <StockChart data={chartData} />}
 		</>
 	);
 }

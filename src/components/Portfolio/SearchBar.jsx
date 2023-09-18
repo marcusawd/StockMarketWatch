@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import debounce from "lodash/debounce";
 import { getStockTicker } from "../../utils/stockApi";
-import "./SearchBar.css";
 
 export default function SearchBar({ addTicker }) {
 	const [searchText, setSearchText] = useState("");
@@ -25,17 +24,21 @@ export default function SearchBar({ addTicker }) {
 	};
 
 	return (
-		<div>
+		<div className="input-group">
 			<input
 				type="text"
 				placeholder="Search for Stock"
 				value={searchText}
 				onChange={handleInput}
+				className="form-control"
 			/>
 			<div className="dropdown">
-				<ul className="dropdown-list">
+				<ul className="dropdown-menu">
 					{searchResults.map((result, index) => (
-						<li key={index} onClick={() => addTicker(result.symbol)}>
+						<li
+							className="dropdown-item"
+							key={index}
+							onClick={() => addTicker(result.symbol)}>
 							{result.symbol}
 						</li>
 					))}

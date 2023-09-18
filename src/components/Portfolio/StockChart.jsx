@@ -18,8 +18,6 @@ export default function StockChart({ data }) {
 	const maxYValue = Math.ceil(
 		Math.max(...reversedData.map((item) => item.close)),
 	);
-	console.log(maxYValue);
-
 	const buffer = Math.round(0.1 * (maxYValue - minYValue));
 
 	const yDomain = [minYValue - buffer, maxYValue];

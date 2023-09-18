@@ -2,8 +2,9 @@ import ReactDatePicker from "react-datepicker"; //*https://www.npmjs.com/package
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
 import PortfolioTable from "./components/Portfolio/PortfolioTable";
-import { useState } from "react";
 import SideBar from "./components/SideBar/SideBar";
+import AddStock from "./components/Portfolio/AddStock";
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -32,6 +33,10 @@ function App() {
 						<Route
 							path="/portfolio"
 							element={<PortfolioTable date={selectedDate} />}
+						/>
+						<Route
+							path="/portfolio/add"
+							element={<AddStock date={selectedDate} />}
 						/>
 					</Routes>
 				</div>

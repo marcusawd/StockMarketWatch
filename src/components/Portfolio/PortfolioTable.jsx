@@ -1,7 +1,7 @@
 import { useState } from "react";
-import SearchBar from "./SearchBar";
 import StockRow from "./StockRow";
 import StockChart from "./StockChart";
+import { Link } from "react-router-dom";
 
 export default function PortfolioTable({ date }) {
 	const [tickers, setTickers] = useState([]);
@@ -17,7 +17,7 @@ export default function PortfolioTable({ date }) {
 
 	return (
 		<>
-			<SearchBar addTicker={addTicker} />
+			<Link></Link>
 			<table>
 				<thead>
 					<tr>

@@ -3,6 +3,8 @@ import debounce from "lodash/debounce";
 import { getEODData, getStockTicker } from "../../utils/stockApi";
 import StockChart from "./StockChart";
 import formatDate from "../../helper/formatDate";
+import { getAndUpdateTable } from "../../utils/airtableService";
+import { useNavigate } from "react-router-dom";
 
 export default function AddStock({ date }) {
 	const [searchText, setSearchText] = useState("");
@@ -11,6 +13,7 @@ export default function AddStock({ date }) {
 	const [showDetails, setShowDetails] = useState(false);
 	const [quantity, setQuantity] = useState(1);
 	const [stockData, setStockData] = useState([]);
+	const navigate = useNavigate();
 	const delayFetchRef = useRef(null);
 
 	//* Was having so much trouble getting debounce to only run once, found out that it was because function keeps re-rendering so had to useRef. Credit to chatGPT
@@ -36,10 +39,9 @@ export default function AddStock({ date }) {
 		setShowDetails(true);
 	};
 	const handleSubmit = () => {
-		// Add logic to handle the purchase with the selected ticker and quantity
 		console.log(`Purchase ${quantity} shares of ${selectedTicker}`);
-		// After handling the purchase, navigate to the portfolio
-		// navigate(`/portfolio?ticker=${selectedTicker}`);
+		getAndUpdateTable(selectedTicker, stockData[0].close, Number(quantity));
+		navigate("/portfolio");
 	};
 
 	return (

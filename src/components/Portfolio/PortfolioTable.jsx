@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import StockRow from "./StockRow";
-import StockChart from "./StockChart";
 import { Link } from "react-router-dom";
 import { getPortfolioData } from "../../utils/airtableApi";
+import PortfolioPieChart from "./Graphs/PortfolioPieChart";
+import aggregateData from "../../helper/aggregateData";
 
 export default function PortfolioTable({ date }) {
 	const [portfolioData, setPortfolioData] = useState([]);
-	const [chartData, setChartData] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const data = await getPortfolioData();
-			setPortfolioData(data);
+			const arrData = aggregateData(data.records);
+			console.log(arrData);
+			setPortfolioData(arrData);
 		};
 		fetchData();
 	}, []);
@@ -28,18 +30,18 @@ export default function PortfolioTable({ date }) {
 					</tr>
 				</thead>
 				<tbody>
-					{portfolioData?.records?.map((stock, index) => (
+					{portfolioData?.map((stock, index) => (
 						<StockRow
-							ticker={stock.fields.Ticker}
-							price={stock.fields.Price}
-							quantity={stock.fields.Quantity}
+							ticker={stock.ticker}
+							price={(stock.totalSpent / stock.totalQuantity).toFixed(2)}
+							quantity={stock.totalQuantity}
 							key={index}
 							date={date}
 						/>
 					))}
 				</tbody>
 			</table>
-			{chartData.length > 0 && <StockChart data={chartData} />}
+			<PortfolioPieChart data={portfolioData} />
 		</>
 	);
 }

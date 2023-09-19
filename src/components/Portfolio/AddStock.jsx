@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import debounce from "lodash/debounce";
 import { getEODData, getStockTicker } from "../../utils/stockApi";
-import StockChart from "./StockChart";
+import StockChart from "./Graphs/StockChart";
 import formatDate from "../../helper/formatDate";
-import { getAndUpdateTable } from "../../utils/airtableService";
+import { makeNewTransaction } from "../../utils/airtableService";
 import { useNavigate } from "react-router-dom";
 
 export default function AddStock({ date }) {
@@ -40,7 +40,7 @@ export default function AddStock({ date }) {
 	};
 	const handleSubmit = () => {
 		console.log(`Purchase ${quantity} shares of ${selectedTicker}`);
-		getAndUpdateTable(selectedTicker, stockData[0].close, Number(quantity));
+		makeNewTransaction(selectedTicker, stockData[0].close, Number(quantity));
 		navigate("/portfolio");
 	};
 

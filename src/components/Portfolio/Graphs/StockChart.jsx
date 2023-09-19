@@ -7,7 +7,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts"; //https://recharts.org/en-US/examples/SimpleLineChart
-import formatDate from "../../helper/formatDate";
+import formatDate from "../../../helper/formatDate";
 
 export default function StockChart({ data }) {
 	const reversedData = [...data].reverse();

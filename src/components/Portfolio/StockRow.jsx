@@ -1,7 +1,3 @@
-import { useState } from "react";
-import { getEODData } from "../../utils/stockApi";
-import formatDate from "../../helper/formatDate";
-
 export default function StockRow({ date, ticker, price, quantity }) {
 	// const [stock, setStock] = useState([]);
 

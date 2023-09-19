@@ -3,6 +3,7 @@ import {
 	BarChart,
 	Line,
 	LineChart,
+	ResponsiveContainer,
 	Tooltip,
 	XAxis,
 	YAxis,
@@ -23,25 +24,29 @@ export default function StockChart({ data }) {
 	const yDomain = [minYValue - buffer, maxYValue];
 
 	return (
-		<div>
+		<>
 			<h2>Stock Price and Volume Graph</h2>
-			<LineChart width={800} height={400} data={reversedData}>
-				<XAxis
-					dataKey="date"
-					tickFormatter={(date) => formatDate(new Date(date))}
-				/>
-				<YAxis domain={yDomain} />
-				<Tooltip />
-				<Line type="monotone" dataKey="close" stroke="#8884d8" />
-			</LineChart>
-			<BarChart width={800} height={150} data={reversedData}>
-				<XAxis
-					dataKey="date"
-					tickFormatter={(date) => formatDate(new Date(date))}
-				/>
-				<YAxis />
-				<Bar dataKey="volume" fill="#82ca9d" />
-			</BarChart>
-		</div>
+			<ResponsiveContainer width="100%" height={400}>
+				<LineChart data={reversedData}>
+					<XAxis
+						dataKey="date"
+						tickFormatter={(date) => formatDate(new Date(date))}
+					/>
+					<YAxis domain={yDomain} />
+					<Tooltip />
+					<Line type="monotone" dataKey="close" stroke="#8884d8" />
+				</LineChart>
+			</ResponsiveContainer>
+			<ResponsiveContainer width="100%" height={150}>
+				<BarChart data={reversedData}>
+					<XAxis
+						dataKey="date"
+						tickFormatter={(date) => formatDate(new Date(date))}
+					/>
+					<YAxis />
+					<Bar dataKey="volume" fill="#82ca9d" />
+				</BarChart>
+			</ResponsiveContainer>
+		</>
 	);
 }

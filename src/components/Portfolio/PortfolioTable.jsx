@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getPortfolioData } from "../../utils/airtableApi";
 import PortfolioPieChart from "./Graphs/PortfolioPieChart";
 import aggregateData from "../../helper/aggregateData";
+import styles from "./PortfolioTable.module.css";
 
 export default function PortfolioTable({ date }) {
 	const [portfolioData, setPortfolioData] = useState([]);
@@ -19,29 +20,33 @@ export default function PortfolioTable({ date }) {
 	}, []);
 
 	return (
-		<>
-			<Link to="/portfolio/add">Add</Link>
-			<table>
-				<thead>
-					<tr>
-						<th>Ticker</th>
-						<th>Price</th>
-						<th>Quantity</th>
-					</tr>
-				</thead>
-				<tbody>
-					{portfolioData?.map((stock, index) => (
-						<StockRow
-							ticker={stock.ticker}
-							price={(stock.totalSpent / stock.totalQuantity).toFixed(2)}
-							quantity={stock.totalQuantity}
-							key={index}
-							date={date}
-						/>
-					))}
-				</tbody>
-			</table>
-			<PortfolioPieChart data={portfolioData} />
-		</>
+		<div className={styles["portfolio-container"]}>
+			<div className={styles["table-container"]}>
+				<Link to="/portfolio/add">Add</Link>
+				<table>
+					<thead>
+						<tr>
+							<th>Ticker</th>
+							<th>Average Price</th>
+							<th>Quantity</th>
+						</tr>
+					</thead>
+					<tbody>
+						{portfolioData?.map((stock, index) => (
+							<StockRow
+								ticker={stock.ticker}
+								price={(stock.totalSpent / stock.totalQuantity).toFixed(2)}
+								quantity={stock.totalQuantity}
+								key={index}
+								date={date}
+							/>
+						))}
+					</tbody>
+				</table>
+			</div>
+			<div className={styles["pie-chart-container"]}>
+				<PortfolioPieChart data={portfolioData} />
+			</div>
+		</div>
 	);
 }

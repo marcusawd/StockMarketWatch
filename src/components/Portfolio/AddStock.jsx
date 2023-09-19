@@ -1,10 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import debounce from "lodash/debounce";
 import { getEODData, getStockTicker } from "../../utils/stockApi";
 import StockChart from "./Graphs/StockChart";
 import formatDate from "../../helper/formatDate";
 import { makeNewTransaction } from "../../utils/airtableService";
 import { useNavigate } from "react-router-dom";
+import { Dropdown, FormControl } from "react-bootstrap";
+import styles from "./AddStock.module.css";
 
 export default function AddStock({ date }) {
 	const [searchText, setSearchText] = useState("");
@@ -13,6 +15,7 @@ export default function AddStock({ date }) {
 	const [showDetails, setShowDetails] = useState(false);
 	const [quantity, setQuantity] = useState(1);
 	const [stockData, setStockData] = useState([]);
+	const [showDropdown, setShowDropdown] = useState(false);
 	const navigate = useNavigate();
 	const delayFetchRef = useRef(null);
 
@@ -22,8 +25,20 @@ export default function AddStock({ date }) {
 			const data = await getStockTicker(text);
 			console.log(data);
 			setSearchResults(data);
+			setShowDropdown(true);
 		}, 500);
 	}
+
+	useEffect(() => {
+		if (selectedTicker) {
+			const fetchData = async () => {
+				const formattedDate = formatDate(date);
+				const data = await getEODData(formattedDate, selectedTicker);
+				setStockData(data);
+			};
+			fetchData();
+		}
+	}, [date, selectedTicker]);
 
 	const handleInput = (event) => {
 		const input = event.target.value;
@@ -32,42 +47,43 @@ export default function AddStock({ date }) {
 	};
 
 	const handleSelectedTicker = async (ticker) => {
-		const formattedDate = formatDate(date);
-		const data = await getEODData(formattedDate, ticker);
-		setStockData(data);
 		setSelectedTicker(ticker);
+		setSearchText(ticker);
 		setShowDetails(true);
+		setShowDropdown(false);
 	};
+
 	const handleSubmit = () => {
 		console.log(`Purchase ${quantity} shares of ${selectedTicker}`);
-		makeNewTransaction(selectedTicker, stockData[0].close, Number(quantity));
+		makeNewTransaction(selectedTicker, stockData[0]?.close, Number(quantity));
 		navigate("/portfolio");
 	};
 
 	return (
-		<div className="input-group">
-			<input
+		<>
+			<FormControl
 				type="text"
 				placeholder="Search for Stock"
 				value={searchText}
 				onChange={handleInput}
-				className="form-control"
+				style={{ textAlign: "center" }}
 			/>
-			<div className="dropdown">
-				<ul className="dropdown-menu">
-					{searchResults.map((result, index) => (
-						<li
-							className="dropdown-item"
+			<Dropdown show={showDropdown} className="custom-dropdown">
+				<Dropdown.Menu>
+					{searchResults?.map((result, index) => (
+						<Dropdown.Item
 							key={index}
 							onClick={() => handleSelectedTicker(result.symbol)}>
 							{result.symbol}
-						</li>
+						</Dropdown.Item>
 					))}
-				</ul>
-			</div>
+				</Dropdown.Menu>
+			</Dropdown>
+
 			{showDetails && (
-				<>
-					<h2>{`${selectedTicker}: ${stockData[0].close}`}</h2>
+				<div className={styles["details-container"]}>
+					<br />
+					<h3>{`${selectedTicker}: ${stockData[0]?.close}`}</h3>
 					<div>
 						<input
 							type="number"
@@ -80,8 +96,8 @@ export default function AddStock({ date }) {
 					<div>
 						<StockChart data={stockData} />
 					</div>
-				</>
+				</div>
 			)}
-		</div>
+		</>
 	);
 }

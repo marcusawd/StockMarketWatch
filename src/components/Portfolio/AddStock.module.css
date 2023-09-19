@@ -1,0 +1,26 @@
+/* Add this to your CSS file (e.g., index.css) */
+.details-container {
+	text-align: center; /* Center the content horizontally */
+	padding: 20px; /* Add spacing around the content */
+}
+
+h3 {
+	margin: 0; /* Remove default margin for h3 */
+}
+
+.input-section {
+	margin-top: 10px; /* Add spacing between the input section and the title */
+}
+
+/* Center the stock chart horizontally */
+.stock-chart {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px; /* Add spacing between the stock chart and the input section */
+}
+
+/* Style the stock chart itself (adjust as needed) */
+.stock-chart svg {
+	width: 100%; /* Ensure the chart fills its container */
+}

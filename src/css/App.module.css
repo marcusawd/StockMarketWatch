@@ -1,4 +1,3 @@
-/* CSS for App.jsx layout */
 .app-container {
 	display: flex;
 	height: 100vh;
@@ -7,8 +6,9 @@
 .sidebar {
 	width: 15%;
 	background-color: #f8f9fa;
-	padding: 20px;
+	padding: 10px;
 	box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
 }
 
 .main-content {

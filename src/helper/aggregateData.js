@@ -13,7 +13,8 @@ export default function aggregateData(data) {
 		}
 		const price = stock.fields.Price;
 		const quantity = stock.fields.Quantity;
-		aggregatedData[ticker].totalSpent += price * quantity;
+		const spent = price * quantity;
+		aggregatedData[ticker].totalSpent += Number(spent.toFixed(2));
 		aggregatedData[ticker].totalQuantity += quantity;
 		aggregatedData[ticker].txCount++;
 	});

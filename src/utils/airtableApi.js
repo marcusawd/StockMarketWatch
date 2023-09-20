@@ -42,4 +42,21 @@ async function patchPortfolioData(data) {
 	return updatedRecord;
 }
 
-export { getPortfolioData, postPortfolioData, patchPortfolioData };
+async function deletePortfolioData(id) {
+	const response = await fetch(`${API_URL}/${id}`, {
+		method: "DELETE",
+		headers: {
+			Authorization: `Bearer ${API_TOKEN}`,
+		},
+	});
+	if (response.ok) {
+		return true;
+	}
+}
+
+export {
+	getPortfolioData,
+	postPortfolioData,
+	patchPortfolioData,
+	deletePortfolioData,
+};

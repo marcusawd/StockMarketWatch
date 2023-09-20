@@ -1,12 +1,13 @@
 import ReactDatePicker from "react-datepicker"; //*https://www.npmjs.com/package//react-datepicker
 import "react-datepicker/dist/react-datepicker.css";
-import PortfolioTable from "./components/Portfolio/PortfolioTable";
+import Portfolio from "./components/Portfolio/Portfolio";
 import SideBar from "./components/SideBar/SideBar";
 import AddStock from "./components/Portfolio/AddStock";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import TransactionHistory from "./components/TransactionHistory/TransactionHistory";
 import styles from "./css/App.module.css";
+import RemoveStock from "./components/Portfolio/RemoveStock";
 
 function App() {
 	const [selectedDate, setSelectedDate] = useState(new Date());
@@ -26,13 +27,16 @@ function App() {
 								onChange={(date) => setSelectedDate(date)}
 								selected={selectedDate}
 								dateFormat="yyyy/MM/dd"
+								maxDate={new Date()}
+								minDate={new Date().setFullYear(new Date().getFullYear() - 1)}
 							/>
 						</div>
 					</header>
 					<Routes>
 						<Route path="/portfolio/*">
-							<Route index element={<PortfolioTable date={selectedDate} />} />
+							<Route index element={<Portfolio date={selectedDate} />} />
 							<Route path="add" element={<AddStock date={selectedDate} />} />
+							<Route path="remove" element={<RemoveStock />} />
 						</Route>
 						<Route
 							path="/transaction-history"

@@ -16,6 +16,7 @@ export default function TransactionHistory({ date }) {
 		fetchData();
 	}, []);
 
+	//* Was having trouble making a seamless sort toggle, majority of code from chatGPT (sort method still abit hard to wrap my head around)
 	const toggleSort = (column) => {
 		if (sortByColumn === column) {
 			const newSortOrder = sortOrder === "asc" ? "desc" : "asc";

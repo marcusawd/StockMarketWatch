@@ -1,0 +1,21 @@
+.portfolio-container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	height: 100vh;
+}
+
+.table-container {
+	flex: 1;
+	/* display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center; */
+}
+
+.pie-chart-container {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

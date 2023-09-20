@@ -6,7 +6,7 @@ import formatDate from "../../helper/formatDate";
 import { makeNewTransaction } from "../../utils/airtableService";
 import { useNavigate } from "react-router-dom";
 import { Dropdown, FormControl } from "react-bootstrap";
-import styles from "./AddStock.module.css";
+import styles from "../../css/AddStock.module.css";
 
 export default function AddStock({ date }) {
 	const [searchText, setSearchText] = useState("");
@@ -55,7 +55,12 @@ export default function AddStock({ date }) {
 
 	const handleSubmit = () => {
 		console.log(`Purchase ${quantity} shares of ${selectedTicker}`);
-		makeNewTransaction(selectedTicker, stockData[0]?.close, Number(quantity));
+		makeNewTransaction(
+			selectedTicker,
+			stockData[0]?.close,
+			Number(quantity),
+			formatDate(date),
+		);
 		navigate("/portfolio");
 	};
 

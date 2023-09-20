@@ -1,0 +1,27 @@
+/* CSS for App.jsx layout */
+.app-container {
+	display: flex;
+	height: 100vh;
+}
+
+.sidebar {
+	width: 15%;
+	background-color: #f8f9fa;
+	padding: 20px;
+	box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+	width: 85%;
+	padding: 20px;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	background-color: #ffffff;
+	padding: 10px 20px;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+}

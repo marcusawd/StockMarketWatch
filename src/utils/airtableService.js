@@ -20,7 +20,7 @@ import {
 // 	}
 // }
 
-async function makeNewTransaction(Ticker, Price, Quantity) {
+async function makeNewTransaction(Ticker, Price, Quantity, txDate) {
 	const data = {
 		records: [
 			{
@@ -28,6 +28,7 @@ async function makeNewTransaction(Ticker, Price, Quantity) {
 					Ticker,
 					Price,
 					Quantity,
+					txDate,
 				},
 			},
 		],

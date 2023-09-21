@@ -22,7 +22,7 @@ Stock Market Watch is a portfolio watcher. It allows the user to keep track of t
 
 ## Getting Started
 
-To try out Stock Market Watch, you can access the deployed app at [Deployed App](https://stock-market-watch.vercel.app/). Additionally, you can view the project's planning and progress on my [Github Projects](https://github.com/users/marcusawd/projects/1).
+To try out Stock Market Watch, you can access the deployed app at [Deployed App](https://stock-market-watch-jxfbi5e0c-marcusawd.vercel.app/). Additionally, you can view the project's planning and progress on my [Github Projects](https://github.com/users/marcusawd/projects/1).
 
 ## Next Steps
 

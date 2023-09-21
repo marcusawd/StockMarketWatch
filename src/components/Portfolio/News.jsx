@@ -15,6 +15,7 @@ export default function News({ date }) {
 			const formattedDate = formatDate(date);
 			const data = await getNewsData(ticker, formattedDate);
 			setData(data);
+			console.log(data);
 			setLoading(false);
 		};
 		fetchNews();

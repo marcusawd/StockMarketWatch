@@ -35,6 +35,7 @@ export default function AddStock({ date, updateAirtableData }) {
 				const formattedDate = formatDate(date);
 				const data = await getEODData(formattedDate, selectedTicker);
 				setStockData(data);
+				setShowDetails(true);
 			};
 			fetchData();
 		}
@@ -49,7 +50,7 @@ export default function AddStock({ date, updateAirtableData }) {
 	const handleSelectedTicker = async (ticker) => {
 		setSelectedTicker(ticker);
 		setSearchText(ticker);
-		setShowDetails(true);
+
 		setShowDropdown(false);
 	};
 
@@ -86,7 +87,7 @@ export default function AddStock({ date, updateAirtableData }) {
 				</Dropdown.Menu>
 			</Dropdown>
 
-			{showDetails && (
+			{showDetails && stockData.length > 0 && (
 				<div className={styles["details-container"]}>
 					<br />
 					<h3>{`${selectedTicker}: ${stockData[0]?.close}`}</h3>

@@ -2,21 +2,27 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import getNewsData from "../../utils/newsApi";
 import formatDate from "../../helper/formatDate";
-import { Button, Card, CardGroup } from "react-bootstrap";
+import { Button, Card, CardGroup, ProgressBar } from "react-bootstrap";
 
 export default function News({ date }) {
 	const { ticker } = useParams();
 	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
+		setLoading(true);
 		const fetchNews = async () => {
 			const formattedDate = formatDate(date);
 			const data = await getNewsData(ticker, formattedDate);
 			setData(data);
-			console.log(data);
+			setLoading(false);
 		};
 		fetchNews();
 	}, [ticker, date]);
+
+	if (loading) {
+		return <ProgressBar animated now={60} />;
+	}
 
 	return (
 		<>

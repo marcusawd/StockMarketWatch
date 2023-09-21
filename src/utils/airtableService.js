@@ -14,7 +14,7 @@ async function makeNewTransaction(Ticker, Price, Quantity, txDate) {
 		],
 	};
 	const newRecord = await postPortfolioData(data);
-	console.log("New Data", newRecord);
+	return newRecord.records[0];
 }
 
 export { makeNewTransaction };

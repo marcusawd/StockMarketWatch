@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getPortfolioData } from "../../utils/airtableApi";
 import PortfolioPieChart from "./Graphs/PortfolioPieChart";
 import aggregateData from "../../helper/aggregateData";
 import styles from "../../css/Portfolio.module.css";
 import { Button, ProgressBar } from "react-bootstrap";
 import PortfolioTable from "./PortfolioTable";
 
-export default function Portfolio({ date }) {
+export default function Portfolio({ date, airtableData }) {
 	const [portfolioData, setPortfolioData] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const data = await getPortfolioData();
-			const filteredData = data.records.filter((record) => {
-				const txDate = new Date(record.fields.txDate);
+		const fetchData = () => {
+			console.log(airtableData, "check for changes");
+			const filteredData = airtableData?.filter((record) => {
+				const txDate = new Date(record?.fields?.txDate);
 				return txDate <= date;
 			});
 			const arrData = aggregateData(filteredData);
@@ -26,7 +25,7 @@ export default function Portfolio({ date }) {
 			}, 500);
 		};
 		fetchData();
-	}, [date]);
+	}, [date, airtableData]);
 
 	if (loading) {
 		return <ProgressBar animated now={60} />;
@@ -39,7 +38,7 @@ export default function Portfolio({ date }) {
 					<Button variant="dark" as={Link} to="/add">
 						Search for New Stock
 					</Button>
-					<PortfolioTable portfolioData={portfolioData} />
+					<PortfolioTable portfolioData={portfolioData} date={date} />
 				</div>
 				<div className={styles["pie-chart-container"]}>
 					<PortfolioPieChart data={portfolioData} />

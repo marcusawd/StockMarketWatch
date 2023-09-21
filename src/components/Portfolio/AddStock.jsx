@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Dropdown, FormControl } from "react-bootstrap";
 import styles from "../../css/AddStock.module.css";
 
-export default function AddStock({ date }) {
+export default function AddStock({ date, updateAirtableData }) {
 	const [searchText, setSearchText] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
 	const [selectedTicker, setSelectedTicker] = useState("");
@@ -53,14 +53,15 @@ export default function AddStock({ date }) {
 		setShowDropdown(false);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		console.log(`Purchase ${quantity} shares of ${selectedTicker}`);
-		makeNewTransaction(
+		const newData = await makeNewTransaction(
 			selectedTicker,
 			stockData[0]?.close,
 			Number(quantity),
 			formatDate(date),
 		);
+		updateAirtableData(newData);
 		navigate("/");
 	};
 

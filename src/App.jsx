@@ -3,15 +3,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import Portfolio from "./components/Portfolio/Portfolio";
 import SideBar from "./components/SideBar/SideBar";
 import AddStock from "./components/Portfolio/AddStock";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import TransactionHistory from "./components/TransactionHistory/TransactionHistory";
 import styles from "./css/App.module.css";
-import RemoveStock from "./components/Portfolio/RemoveStock";
 import News from "./components/Portfolio/News";
+import { getPortfolioData } from "./utils/airtableApi";
 
 function App() {
 	const [selectedDate, setSelectedDate] = useState(new Date());
+	const [airtableData, setAirtableData] = useState([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const data = await getPortfolioData();
+			setAirtableData(data.records);
+			console.log(data.records);
+		};
+		fetchData();
+	}, []);
+
+	const updateAirtableData = (data) => setAirtableData([...airtableData, data]);
 
 	return (
 		<>
@@ -35,9 +47,21 @@ function App() {
 					</header>
 					<Routes>
 						<Route path="/">
-							<Route index element={<Portfolio date={selectedDate} />} />
-							<Route path="add" element={<AddStock date={selectedDate} />} />
-							<Route path="remove" element={<RemoveStock />} />
+							<Route
+								index
+								element={
+									<Portfolio date={selectedDate} airtableData={airtableData} />
+								}
+							/>
+							<Route
+								path="add"
+								element={
+									<AddStock
+										date={selectedDate}
+										updateAirtableData={updateAirtableData}
+									/>
+								}
+							/>
 							<Route
 								path="news/:ticker"
 								element={<News date={selectedDate} />}

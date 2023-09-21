@@ -2,7 +2,6 @@ import { Button, ButtonGroup, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function PortfolioTable({ portfolioData }) {
-	// const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 
 	const handleNewsButton = (ticker) => {

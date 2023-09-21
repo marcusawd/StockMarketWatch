@@ -4,11 +4,12 @@ import { getPortfolioData } from "../../utils/airtableApi";
 import PortfolioPieChart from "./Graphs/PortfolioPieChart";
 import aggregateData from "../../helper/aggregateData";
 import styles from "../../css/Portfolio.module.css";
-import { Button } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
 import PortfolioTable from "./PortfolioTable";
 
 export default function Portfolio({ date }) {
 	const [portfolioData, setPortfolioData] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -18,21 +19,25 @@ export default function Portfolio({ date }) {
 				return txDate <= date;
 			});
 			const arrData = aggregateData(filteredData);
-			console.log(arrData);
+			// console.log(arrData);
 			setPortfolioData(arrData);
+			setTimeout(() => {
+				setLoading(false);
+			}, 500);
 		};
 		fetchData();
 	}, [date]);
+
+	if (loading) {
+		return <ProgressBar animated now={60} />;
+	}
 
 	return (
 		<>
 			<div className={styles["portfolio-container"]}>
 				<div className={styles["table-container"]}>
-					<Button variant="primary" as={Link} to="/add">
-						Add New
-					</Button>
-					<Button variant="danger" as={Link} to="/remove">
-						Remove
+					<Button variant="dark" as={Link} to="/add">
+						Search for New Stock
 					</Button>
 					<PortfolioTable portfolioData={portfolioData} />
 				</div>

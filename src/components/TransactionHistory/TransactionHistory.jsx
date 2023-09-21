@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { deletePortfolioData, getPortfolioData } from "../../utils/airtableApi";
-import { Table } from "react-bootstrap";
+import { ProgressBar, Table } from "react-bootstrap";
 
 export default function TransactionHistory({ date }) {
 	const [data, setData] = useState([]);
 	const [sortByColumn, setSortByColumn] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [sortOrder, setSortOrder] = useState("asc");
 
 	useEffect(() => {
@@ -12,6 +13,7 @@ export default function TransactionHistory({ date }) {
 			const data = await getPortfolioData();
 			const initialData = data.records;
 			setData(initialData);
+			setLoading(false);
 		};
 		fetchData();
 	}, []);
@@ -48,6 +50,10 @@ export default function TransactionHistory({ date }) {
 			setData(updatedData);
 		}
 	};
+
+	if (loading) {
+		return <ProgressBar animated now={60} />;
+	}
 
 	return (
 		<Table striped bordered hover className="text-center">

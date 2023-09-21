@@ -1,6 +1,5 @@
 const API_TOKEN = "aO6V6IeoJ1KtaEF7HcbWPD3nFbCRAU3U1Lgl8Em0";
 const BASE_URL = "https://api.stockdata.org/v1";
-// const symbols = "AAPL";
 
 async function getStockData(ticker) {
 	const url = `${BASE_URL}/data/quote?symbols=${ticker}&api_token=${API_TOKEN}`;

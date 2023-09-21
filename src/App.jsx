@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import TransactionHistory from "./components/TransactionHistory/TransactionHistory";
 import styles from "./css/App.module.css";
 import RemoveStock from "./components/Portfolio/RemoveStock";
+import News from "./components/Portfolio/News";
 
 function App() {
 	const [selectedDate, setSelectedDate] = useState(new Date());
@@ -33,10 +34,14 @@ function App() {
 						</div>
 					</header>
 					<Routes>
-						<Route path="/portfolio/*">
+						<Route path="/">
 							<Route index element={<Portfolio date={selectedDate} />} />
 							<Route path="add" element={<AddStock date={selectedDate} />} />
 							<Route path="remove" element={<RemoveStock />} />
+							<Route
+								path="news/:ticker"
+								element={<News date={selectedDate} />}
+							/>
 						</Route>
 						<Route
 							path="/transaction-history"

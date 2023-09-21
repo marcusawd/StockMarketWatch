@@ -61,7 +61,7 @@ export default function AddStock({ date }) {
 			Number(quantity),
 			formatDate(date),
 		);
-		navigate("/portfolio");
+		navigate("/");
 	};
 
 	return (
@@ -73,8 +73,8 @@ export default function AddStock({ date }) {
 				onChange={handleInput}
 				style={{ textAlign: "center" }}
 			/>
-			<Dropdown show={showDropdown} className="custom-dropdown">
-				<Dropdown.Menu>
+			<Dropdown show={showDropdown}>
+				<Dropdown.Menu className={styles["dropdown-menu"]}>
 					{searchResults?.map((result, index) => (
 						<Dropdown.Item
 							key={index}

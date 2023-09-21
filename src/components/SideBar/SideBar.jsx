@@ -4,13 +4,13 @@ import { Nav } from "react-bootstrap";
 export default function SideBar() {
 	return (
 		<Nav>
-			<Nav.Item>
+			{/* <Nav.Item>
 				<Link to="/" className="nav-link">
 					Dashboard
 				</Link>
-			</Nav.Item>
+			</Nav.Item> */}
 			<Nav.Item>
-				<Link to="/portfolio" className="nav-link">
+				<Link to="/" className="nav-link">
 					Portfolio
 				</Link>
 			</Nav.Item>

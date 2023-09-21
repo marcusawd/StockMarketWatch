@@ -28,13 +28,13 @@ export default function Portfolio({ date }) {
 		<>
 			<div className={styles["portfolio-container"]}>
 				<div className={styles["table-container"]}>
-					<Button variant="primary" as={Link} to="/portfolio/add">
+					<Button variant="primary" as={Link} to="/add">
 						Add New
 					</Button>
-					<Button variant="danger" as={Link} to="/portfolio/remove">
+					<Button variant="danger" as={Link} to="/remove">
 						Remove
 					</Button>
-					<PortfolioTable portfolioData={portfolioData} date={date} />
+					<PortfolioTable portfolioData={portfolioData} />
 				</div>
 				<div className={styles["pie-chart-container"]}>
 					<PortfolioPieChart data={portfolioData} />
